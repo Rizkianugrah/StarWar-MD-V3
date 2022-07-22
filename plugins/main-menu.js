@@ -508,14 +508,14 @@ const template = generateWAMessageFromContent(m.key.remoteJid, proto.Message.fro
             hydratedButtons: [{
             urlButton: {
                displayText: 'Website Creator',
-               url: web
+               url: 'https://194.233.66.232/',
              }
 
            },
              {
              urlButton: {
                displayText: 'Group Bot', 
-               url: gc
+               url: 'https://chat.whatsapp.com/CWvL3sXIBPV1urCTauDTPZ',
              }
 
            },
