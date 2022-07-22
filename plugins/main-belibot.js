@@ -3,7 +3,7 @@ let handler = async (m, { conn }) => {
   let pepe = 'https://telegra.ph/file/2e2eb7d093fec08fd00d4.jpg'
   let baper = await fetch(pepe).then(a => a.buffer())
 
-  let aine = '6281387089252@s.whatsapp.net'
+  let Yusuf = '6281387089252@s.whatsapp.net'
   let a = await conn.profilePictureUrl(conn.user.jid, 'image').catch((_) => "https://telegra.ph/file/94d716b0d3cd2858383bc.jpg")
   let b = await conn.profilePictureUrl(owner[0]+'@s.whatsapp.net', 'image').catch((_) => "https://telegra.ph/file/94d716b0d3cd2858383bc.jpg")
   let c = pickRandom([a, b])
