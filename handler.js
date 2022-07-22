@@ -413,32 +413,109 @@ module.exports = {
                     autolevelup: true,
                     lastIstigfar: 5,
                 }
-                let chat = global.db.data.chats[m.chat]
-                if (typeof chat !== 'object') global.db.data.chats[m.chat] = {}
-                if (chat) {
-                    if (!('isBanned' in chat)) chat.isBanned = false
-                    if (!('welcome' in chat)) chat.welcome = true
-                    if (!('detect' in chat)) chat.detect = true
-                    if (!('sWelcome' in chat)) chat.sWelcome = ''
-                    if (!('sBye' in chat)) chat.sBye = ''
-                    if (!('sPromote' in chat)) chat.sPromote = ''
-                    if (!('sDemote' in chat)) chat.sDemote = ''
-                    if (!('delete' in chat)) chat.delete = true
-                    if (!('antiLink' in chat)) chat.antiLink = true
-                    if (!('viewonce' in chat)) chat.viewonce = true
-                    if (!('antiToxic' in chat)) chat.antiToxic = true
-                } else global.db.data.chats[m.chat] = {
-                    isBanned: false,
-                    welcome: true,
-                    detect: true,
-                    sWelcome: '',
-                    sBye: '',
-                    sPromote: '',
-                    sDemote: '',
-                    delete: true,
-                    antiLink: true,
-                    viewonce: true,
-                    antiToxic: true,
+
+            let chat = global.db.data.chats[m.chat]
+
+            if (typeof chat !== 'object')
+
+                global.db.data.chats[m.chat] = {}
+
+            if (chat) {
+
+                if (!('antiDelete' in chat)) chat.antiDelete = false
+
+                if (!('antiLink' in chat)) chat.antiLink = false
+
+                if (!('antiToxic' in chat)) chat.antiToxic = false
+
+                if (!('delete' in chat)) chat.delete = false
+
+                if (!('detect' in chat)) chat.detect = false
+
+                if (!('getmsg' in chat))  chat.getmsg = false
+
+                if (!('isBanned' in chat)) chat.isBanned = false
+
+                if (!('lastAnime' in chat)) chat.lastAnime = false
+
+                if (!('latestNews' in chat)) chat.latestNews = false
+
+                if (!('nsfw' in chat)) chat.nsfw = false
+
+                if (!('premium' in chat)) chat.premium = false
+
+                if (!('premiumTime' in chat)) chat.premiumTime = false
+
+                if (!('premnsfw' in chat)) chat.premnsfw = false
+
+                if (!('sBye' in chat)) chat.sBye = ''
+
+                if (!('sDemote' in chat)) chat.sDemote = ''
+
+                if (!('simi' in chat)) chat.simi = false
+
+                if (!('sPromote' in chat)) chat.sPromote = ''
+
+                if (!('sWelcome' in chat)) chat.sWelcome = ''
+
+                if (!('viewonce' in chat)) chat.viewonce = false
+
+                if (!('viewOnce' in chat)) chat.viewOnce = false
+
+                if (!('welcome' in chat)) chat.welcome = false
+
+                if (!isNumber(chat.expired)) chat.expired = 0  
+
+            } else
+
+                global.db.data.chats[m.chat] = {
+
+                    antiDelete: false,
+
+	                antiLink: false,
+
+	                antiToxic: false,
+
+	                delete: false,
+
+	                detect: false,
+
+	                expired: 0,
+
+	                getmsg: false,
+
+	                isBanned: false,
+
+	                lastAnime = false,
+
+	                latestNews = false,
+
+	                nsfw: false,
+
+	                premium: false,
+
+	                premiumTime: false,
+
+	                premnsfw: false,
+
+	                sBye: '',
+
+	                sDemote: '',
+
+	                simi: false,
+
+	                sPromote: '',
+
+	                sWelcome: '',
+
+	                viewOnce: false,
+
+	                viewonce: false,
+
+	                welcome: false
+
+	                
+
                 }
             } catch (e) {
                 console.error(e)
