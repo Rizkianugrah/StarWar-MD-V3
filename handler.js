@@ -412,110 +412,54 @@ module.exports = {
                     regTime: -1,
                     autolevelup: true,
                     lastIstigfar: 5,
-                }
-
+          }
             let chat = global.db.data.chats[m.chat]
-
             if (typeof chat !== 'object')
-
                 global.db.data.chats[m.chat] = {}
-
             if (chat) {
-
                 if (!('antiDelete' in chat)) chat.antiDelete = false
-
                 if (!('antiLink' in chat)) chat.antiLink = false
-
-                if (!('antiToxic' in chat)) chat.antiToxic = false
-
+                if (!('antiToxic' in chat)) chat.antiToxic = true
                 if (!('delete' in chat)) chat.delete = false
-
                 if (!('detect' in chat)) chat.detect = false
-
-                if (!('getmsg' in chat))  chat.getmsg = false
-
+                if (!('getmsg' in chat))  chat.getmsg = true
                 if (!('isBanned' in chat)) chat.isBanned = false
-
-                if (!('lastAnime' in chat)) chat.lastAnime = false
-
-                if (!('latestNews' in chat)) chat.latestNews = false
-
                 if (!('nsfw' in chat)) chat.nsfw = false
-
                 if (!('premium' in chat)) chat.premium = false
-
                 if (!('premiumTime' in chat)) chat.premiumTime = false
-
                 if (!('premnsfw' in chat)) chat.premnsfw = false
-
                 if (!('sBye' in chat)) chat.sBye = ''
-
                 if (!('sDemote' in chat)) chat.sDemote = ''
-
                 if (!('simi' in chat)) chat.simi = false
-
                 if (!('sPromote' in chat)) chat.sPromote = ''
-
                 if (!('sWelcome' in chat)) chat.sWelcome = ''
-
                 if (!('viewonce' in chat)) chat.viewonce = false
-
                 if (!('viewOnce' in chat)) chat.viewOnce = false
-
-                if (!('welcome' in chat)) chat.welcome = false
-
-                if (!isNumber(chat.expired)) chat.expired = 0  
-
+                if (!('welcome' in chat)) chat.welcome = true
+                if (!isNumber(chat.expired)) chat.expired = 0
             } else
-
                 global.db.data.chats[m.chat] = {
-
                     antiDelete: false,
-
 	                antiLink: false,
-
-	                antiToxic: false,
-
+	                antiToxic: true,
 	                delete: false,
-
 	                detect: false,
-
 	                expired: 0,
-
-	                getmsg: false,
-
+	                getmsg: true,
 	                isBanned: false,
-
-	                lastAnime = false,
-
-	                latestNews = false,
-
 	                nsfw: false,
-
 	                premium: false,
-
 	                premiumTime: false,
-
 	                premnsfw: false,
-
 	                sBye: '',
-
 	                sDemote: '',
-
 	                simi: false,
-
 	                sPromote: '',
-
 	                sWelcome: '',
-
 	                viewOnce: false,
-
 	                viewonce: false,
-
-	                welcome: false
-
+	                welcome: true
 	                
-
                 }
             } catch (e) {
                 console.error(e)
