@@ -98,17 +98,8 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isAdmin, isR
       if (!isOwner) {
         global.dfail('owner', m, conn)
         throw false
+    setting.autoread = isEnable
       }
-      opts['autoread'] = isEnable
-      break
-    case 'restrict':
-      isAll = true
-      if (!isOwner) {
-        global.dfail('owner', m, conn)
-        throw false
-      }
-      opts['restrict'] = isEnable
-      break
     case 'nsfw':
       isAll = true
       if (!isOwner) {
