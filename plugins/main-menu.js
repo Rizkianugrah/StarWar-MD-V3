@@ -507,7 +507,7 @@ const template = generateWAMessageFromContent(m.key.remoteJid, proto.Message.fro
             hydratedFooterText: wm2, 
             hydratedButtons: [{
             urlButton: {
-               displayText: 'Website Creator',
+               displayText: 'Website Komik',
                url: 'https://194.233.66.232/',
              }
 
