@@ -7,21 +7,21 @@ global.prems = ['']
 global.nameowner = '𝓜𝓪𝓾𝓵𝓪𝓷𝓪 𝓨𝓾𝓼𝓾𝓯'
 global.numberowner = '6281387089252'
 global.instagram = 'https://instagram.com/maulana_yusuf.id'
-global.github = 'https://github.com/Rizkianugrah'
-global.dana = ''
+global.github = 'https://github.com/nisabot'
+global.dana = '0895622463636'
 global.pulsa = '081387089252'
 global.gopay = ''
 
 //=============『 Info Bot 』=================//
 global.namebot = 'SKYWARBotzMD'
-global.gc = 'https://chat.whatsapp.com/D2UYbSKkj0PCmy0nG0mYCd'
+global.gc = 'https://chat.whatsapp.com/CWvL3sXIBPV1urCTauDTPZ'
 global.web = 'https://youtube.com/channel/UCGAsDPrOq2irv9xqpG-NEuw' //ubah jadi website lu, bisa link ig, link github, link yt, klo link gc ntr beda tampilan lagi. 
 global.price1 = 'perbulan 15.000\n3 minggu 10.000\n2 Minggu 7.000\n5 Bulan 60.000'
 
 //=======『 Tampilan Dan Lainnya 』============//
 global.fotonya1 = 'https://telegra.ph/file/eabb6696cf296336effba.jpg' //ganti jadi foto bot mu
 global.fotonya2 = 'https://telegra.ph/file/eabb6696cf296336effba.jpg' //ini juga ganti 
-global.lolkey = 'Papah-Chan' //biar mudah ngegantinya semisal apikeynya expired:v
+global.lolkey = 'annisabotlinewathsapp' //biar mudah ngegantinya semisal apikeynya expired:v
 global.zenzkey = 'BagasPrdn' //ganti jadi apikey lu kalau expired
 global.wm = '❚█══SKYWAR 𝐁𝐎𝐓𝐙‖MD‖'
 global.watermark = wm
@@ -62,7 +62,7 @@ global.APIKeys = { // APIKey Here
   'https://server-api-rey.herokuapp.com': 'apirey',
   'https://hardianto-chan.herokuapp.com': 'hardianto',
   'https://neoxr-api.herokuapp.com': 'yntkts',
-  'https://pencarikode.xyz': 'APIKEY',
+  'https://pencarikode.xyz': 'pais',
   'https://api.xteam.xyz': 'HIRO',
   'https://zahirr-web.herokuapp.com': 'zahirgans',
   'https://api.zeks.xyz': 'nyyxz-bot',
