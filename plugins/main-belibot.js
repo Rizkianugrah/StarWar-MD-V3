@@ -45,9 +45,9 @@ wa.me/${owner[0]}
   conn.sendContact(m.chat, data.map(([id, name]) => [id, name]), m)
 
 }
-handler.help = ['sewa']
-handler.tags = ['main']
-handler.command = /^(sewa)$/i
+handler.help = ['sewa', 'sewabot']
+handler.tags = ['info']
+handler.command = /^(sewa|sewabot)?$/i
 
 module.exports = handler
 
