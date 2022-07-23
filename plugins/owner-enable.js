@@ -93,7 +93,19 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isAdmin, isR
       }
       setting.antitroli = isEnable
       break
-    case 'autoread':
+    case 'nsfw':
+      isAll = true
+      if (!isOwner) {
+          global.dfail('group', m, conn)
+          throw false
+        }
+      } else if (!(isAdmin || isOwner)) {
+        global.dfail('admin', m, conn)
+        throw false
+      }
+      chat.nsfw = isEnable
+      break
+     case 'autoread':
       isAll = true
       if (!isOwner) {
         global.dfail('owner', m, conn)
@@ -101,21 +113,13 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isAdmin, isR
       }
       opts['autoread'] = isEnable
       break
-    case 'restrict':
+     case 'restrict':
       isAll = true
       if (!isOwner) {
         global.dfail('owner', m, conn)
         throw false
       }
       opts['restrict'] = isEnable
-      break
-    case 'nsfw':
-      isAll = true
-      if (!isOwner) {
-        global.dfail('owner', m, conn)
-        throw false
-      }
-      setting.nsfw = isEnable
       break
     case 'jadibot':
       isAll = true
