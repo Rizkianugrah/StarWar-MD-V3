@@ -21,7 +21,7 @@ global.price1 = 'perbulan 15.000\n3 minggu 10.000\n2 Minggu 7.000\n5 Bulan 60.00
 //=======『 Tampilan Dan Lainnya 』============//
 global.fotonya1 = 'https://telegra.ph/file/276f185ce2694f34985c9.jpg' //ganti jadi foto bot mu
 global.fotonya2 = 'https://telegra.ph/file/91dce539b7232744cfd2e.jpg' //ini juga ganti 
-global.lolkey = 'annisabotlinewathsapp' //biar mudah ngegantinya semisal apikeynya expired:v
+global.lolkey = 'papah-chan' //biar mudah ngegantinya semisal apikeynya expired:v
 global.zenzkey = 'BagasPrdn' //ganti jadi apikey lu kalau expired
 global.wm = '❚█══SKYWAR 𝐁𝐎𝐓𝐙‖MD‖'
 global.watermark = wm
