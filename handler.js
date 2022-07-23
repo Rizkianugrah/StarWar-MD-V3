@@ -145,7 +145,7 @@ module.exports = {
                     if (!isNumber(user.makananpet)) user.makananpet = 0
         
                     if (!isNumber(user.antispam)) user.antispam = 0
-                    if (!isNumber(user.antispamlastclaim)) user.antispamlastclaim = 5
+                    if (!isNumber(user.antispamlastclaim)) user.antispamlastclaim = 0
         
                     if (!isNumber(user.kayu)) user.kayu = 0
                     if (!('kingdom' in user)) user.kingdom = false
@@ -212,13 +212,12 @@ module.exports = {
                     if (!isNumber(user.lasthourly)) user.lasthourly = 0
                     if (!isNumber(user.lastweekly)) user.lastweekly = 0
                     if (!isNumber(user.lastmonthly)) user.lastmonthly = 0
-                    if (!isNumber(user.lastIstigfar)) user.lastIstigfar = 5
+                    if (!isNumber(user.lastIstigfar)) user.lastIstigfar = 0
                     if (!isNumber(user.lastturu)) user.lastturu = 0
                     if (!isNumber(user.lastseen)) user.lastseen = 0
                     if (!isNumber(user.lastbansos)) user.lastbansos = 0
                     if (!isNumber(user.lastrampok)) user.lastrampok = 0
-                    if (!('registered' in user)) user.registered = true
-
+                    if (!('registered' in user)) user.registered = false
                     if (!user.registered) {
                     if (!('name' in user)) user.name = this.getName(m.sender)
         
@@ -360,8 +359,8 @@ module.exports = {
                     anakrubah: 0,
                     anakanjing: 0,
                     makananpet: 0,
-                    antispam: 5,
-                    antispamlastclaim: 5,
+                    antispam: 0,
+                    antispamlastclaim: 0,
                     kayu: 0,
                     batu: 0,
                     string: 0,
@@ -391,7 +390,7 @@ module.exports = {
                     lastturu: 0,
                     lastseen: 0,
                     lastSetStatus: 0,
-                    registered: true,
+                    registered: false,
                     apel: 20,
                     mangga: 0,
                     stroberi: 0,
@@ -406,77 +405,42 @@ module.exports = {
                     job: 'Pengangguran', 
                     lbars: '[▒▒▒▒▒▒▒▒▒]', 
                     role: 'Newbie ㋡', 
-                    registered: true,
+                    registered: false,
                     name: this.getName(m.sender),
                     age: -1,
                     regTime: -1,
                     autolevelup: true,
-                    lastIstigfar: 5,
-          }
-            let c}
-            let chat = global.db.data.chats[m.chat]
-            if (typeof chat !== 'object')
-                global.db.data.chats[m.chat] = {}
-            if (chat) {
-                if (!('isBanned' in chat))
-                    chat.isBanned = false
-                if (!('welcome' in chat))
-                    chat.welcome = false
-                if (!('detect' in chat))
-                    chat.detect = false
-                if (!('sWelcome' in chat))
-                    chat.sWelcome = ''
-                if (!('sBye' in chat))
-                    chat.sBye = ''
-                if (!('sPromote' in chat))
-                    chat.sPromote = ''
-                if (!('sDemote' in chat))
-                    chat.sDemote = ''
-                if (!('delete' in chat))
-                    chat.delete = false
-                if (!('antiLink' in chat))
-                    chat.antiLink = false
-                if (!('viewonce' in chat))
-                    chat.viewonce = false
-                if (!('antiToxic' in chat))
-                    chat.antiToxic = false
-                if (!('simi' in chat))
-                    chat.simi = false
-                if (!isNumber(chat.expired))
-                    chat.expired = 0
-            } else
-                global.db.data.chats[m.chat] = {
+                    lastIstigfar: 0,
+                }
+                let chat = global.db.data.chats[m.chat]
+                if (typeof chat !== 'object') global.db.data.chats[m.chat] = {}
+                if (chat) {
+                    if (!('isBanned' in chat)) chat.isBanned = false
+                    if (!('welcome' in chat)) chat.welcome = true
+                    if (!('detect' in chat)) chat.detect = false
+                    if (!('sWelcome' in chat)) chat.sWelcome = ''
+                    if (!('sBye' in chat)) chat.sBye = ''
+                    if (!('sPromote' in chat)) chat.sPromote = ''
+                    if (!('sDemote' in chat)) chat.sDemote = ''
+                    if (!('delete' in chat)) chat.delete = true
+                    if (!('antiLink' in chat)) chat.antiLink = true
+                    if (!('viewonce' in chat)) chat.viewonce = false
+                    if (!('antiToxic' in chat)) chat.antiToxic = false
+                } else global.db.data.chats[m.chat] = {
                     isBanned: false,
-                    welcome: false,
+                    welcome: true,
                     detect: false,
                     sWelcome: '',
                     sBye: '',
                     sPromote: '',
                     sDemote: '',
-                    delete: false,
+                    delete: true,
                     antiLink: false,
                     viewonce: false,
-                    antiToxic: false,
-                    simi: false,
-                    expired: 0,
+                    antiToxic: true,
                 }
-            let settings = global.db.data.settings[this.user.jid]
-            if (typeof settings !== 'object') global.db.data.settings[this.user.jid] = {}
-            if (settings) {
-                if (!('self' in settings)) settings.self = false
-                if (!('autoread' in settings)) settings.autoread = true
-                if (!('restrict' in settings)) settings.restrict = false
-                if (!('autorestart' in settings)) settings.autorestart = false
-                if (!('restartDB' in settings)) settings.restartDB = 0
-            } else global.db.data.settings[this.user.jid] = {
-                self: false,
-                autoread: true,
-                restrict: false,
-                autorestart: false,
-                restartDB: 0
-            }
-        } catch (e) {
-            console.error(e)
+            } catch (e) {
+                console.error(e)
             }
             if (opts['nyimak']) return
             if (!m.fromMe && opts['self']) return
@@ -616,7 +580,7 @@ module.exports = {
                         fail('private', m, this)
                         continue
                     }
-                    if (plugin.register == true && _user.registered == true) { // Butuh daftar?
+                    if (plugin.register == true && _user.registered == false) { // Butuh daftar?
                         fail('unreg', m, this)
                         continue
                     }
@@ -742,9 +706,9 @@ module.exports = {
                             pp = await this.profilePictureUrl(user, 'image')
                         } catch (e) {
                         } finally {
-                            text = (action === 'add' ? (chat.sWelcome || this.welcome || conn.welcome || 'Yah,si Beban Masuk Grup @user').replace('@subject', groupMetadata.subject).replace('@desc', groupMetadata.desc.toString()) :
-                                (chat.sBye || this.bye || conn.bye || 'Sip, Beban Berkurang @user!')).replace('@user', '@' + user.split('@')[0])
-                                this.sendButtonImg(id, pp, text, "Group Message By ©ArullOfc", "Okee", "hhh", null)
+                            text = (action === 'add' ? (chat.sWelcome || this.welcome || conn.welcome || 'Yah,si Beban Masuk Grup').replace('@subject', groupMetadata.subject).replace('@desc', groupMetadata.desc.toString()) :
+                                (chat.sBye || this.bye || conn.bye || 'Sip, Beban Berkurang 1'))
+                                this.sendButtonImg(id, pp, text, "Group Message", "Hi Beban 👋", "wkwk", null)
                                 }
                     }
                 }
@@ -782,31 +746,16 @@ Untuk mematikan fitur ini, ketik
 
 global.dfail = (type, m, conn) => {
     let msg = {
-    rowner: `╭─֍〔 ıll *OWNER* llı 〕֍─
-⬡ Perintah ini hanya untuk *pemilik bot*
-╰─────────────────֍`,
-    owner: `╭─֍〔 ıll *OWNER* llı 〕֍─
-⬡ Perintah ini hanya untuk *pemilik bot*
-╰─────────────────֍`,
-    mods: `╭─֍〔 ıll *OWNER* llı 〕֍─
-⬡ Perintah ini hanya untuk *pemilik bot*
-╰─────────────────֍`,
-    premium: `╭─֍〔 ıll *PREMIUM* llı 〕֍─
-⬡ Fitur ini hanya tersedia untuk user *Premium*
-╰─────────────────֍`,
-    group: `╭─֍〔 ıll *GROUP* llı 〕֍─
-⬡ Fitur ini hanya dapat digunakan didalam grup!!
-╰─────────────────֍`,
-    private: `╭─֍〔 ıll *PRIVATE* llı 〕֍─
-⬡ Fitur ini hanya dapat digunakan diprivate chat
-╰─────────────────֍`,
-    admin: `╭─֍〔 ıll *ADMIN GROUP* llı 〕֍─
-⬡ Fitur ini hanya tersedia untuk admin grup!!
-╰─────────────────֍`,
-    botAdmin: `╭─֍〔 ıll *WARNING* llı 〕֍─
-⬡ Fitur ini tidak dapat work, bot tidak menjadi admin
-╰─────────────────֍`,
-    restrict: 'Fitur ini di *disable*!',
+        rowner: 'Perintah ini hanya dapat digunakan oleh _*OWWNER!1!1!*_',
+        owner: 'Perintah ini hanya dapat digunakan oleh _*Owner Bot*_!',
+        mods: 'Perintah ini hanya dapat digunakan oleh _*Moderator*_ !',
+        premium: 'Perintah ini hanya untuk member _*Premium*_ !',
+        group: 'Perintah ini hanya dapat digunakan di grup!',
+        private: 'Perintah ini hanya dapat digunakan di Chat Pribadi!',
+        admin: 'Perintah ini hanya untuk *Admin* grup!',
+        botAdmin: 'Jadikan bot sebagai *Admin* untuk menggunakan perintah ini!',
+        unreg: 'Silahkan daftar untuk menggunakan fitur ini dengan cara mengetik:\n\n*#daftar nama.umur*\n\nContoh: *#daftar Manusia.16*',
+        restrict: 'Fitur ini di *disable*!'
     }[type]
   if (msg) return conn.sendBut(m.chat, msg, '📮 Silahkan pilih menu dibawah ini', 'Menu', '.menu', m)
  let unreg = {
