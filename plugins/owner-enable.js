@@ -93,7 +93,13 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isAdmin, isR
       }
       setting.antitroli = isEnable
       break
-    opts['autoread'] = isEnable
+    case 'autoread':
+      isAll = true
+      if (!isOwner) {
+        global.dfail('owner', m, conn)
+        throw false
+      }
+      opts['autoread'] = isEnable
       break
     case 'restrict':
       isAll = true
