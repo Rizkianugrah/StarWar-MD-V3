@@ -58,6 +58,7 @@ module.exports = {
                     if (!isNumber(user.kardus)) user.kardus = 0
                     if (!isNumber(user.kaleng)) user.kaleng = 0
                     if (!isNumber(user.aqua)) user.aqua = 0
+                    if (!isNumber(user.emerald)) user.emerald = 0
                     if (!isNumber(user.diamond)) user.diamond = 0
                     if (!isNumber(user.iron)) user.iron = 0
                     if (!isNumber(user.emas)) user.emas = 0
@@ -269,6 +270,7 @@ module.exports = {
                     tigame: 50,
                     lastclaim: 0,
                     money: 0,
+                    emerald: 0,
                     diamond: 0,
                     iron: 0,
                     emas: 0,
@@ -391,7 +393,7 @@ module.exports = {
                     lastturu: 0,
                     lastseen: 0,
                     lastSetStatus: 0,
-                    registered: true,
+                    registered: false,
                     apel: 20,
                     mangga: 0,
                     stroberi: 0,
@@ -406,7 +408,7 @@ module.exports = {
                     job: 'Pengangguran', 
                     lbars: '[▒▒▒▒▒▒▒▒▒]', 
                     role: 'Newbie ㋡', 
-                    registered: true,
+                    registered: false,
                     name: this.getName(m.sender),
                     age: -1,
                     regTime: -1,
@@ -418,27 +420,27 @@ module.exports = {
                 if (chat) {
                     if (!('isBanned' in chat)) chat.isBanned = false
                     if (!('welcome' in chat)) chat.welcome = true
-                    if (!('detect' in chat)) chat.detect = true
+                    if (!('detect' in chat)) chat.detect = false
                     if (!('sWelcome' in chat)) chat.sWelcome = ''
                     if (!('sBye' in chat)) chat.sBye = ''
                     if (!('sPromote' in chat)) chat.sPromote = ''
                     if (!('sDemote' in chat)) chat.sDemote = ''
-                    if (!('delete' in chat)) chat.delete = true
-                    if (!('antiLink' in chat)) chat.antiLink = true
-                    if (!('viewonce' in chat)) chat.viewonce = true
-                    if (!('antiToxic' in chat)) chat.antiToxic = true
+                    if (!('delete' in chat)) chat.delete = false
+                    if (!('antiLink' in chat)) chat.antiLink = false
+                    if (!('viewonce' in chat)) chat.viewonce = false
+                    if (!('antiToxic' in chat)) chat.antiToxic = false
                 } else global.db.data.chats[m.chat] = {
                     isBanned: false,
                     welcome: true,
-                    detect: true,
+                    detect: false,
                     sWelcome: '',
                     sBye: '',
                     sPromote: '',
                     sDemote: '',
-                    delete: true,
-                    antiLink: true,
-                    viewonce: true,
-                    antiToxic: true,
+                    delete: false,
+                    antiLink: false,
+                    viewonce: false,
+                    antiToxic: false,
                 }
             } catch (e) {
                 console.error(e)
@@ -475,8 +477,26 @@ module.exports = {
             let isROwner = [global.conn.user.jid, ...global.owner].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
             let isOwner = isROwner || m.fromMe
             let isMods = isOwner || global.mods.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
-            let isPrems = isROwner || global.prems.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
-            let groupMetadata = (m.isGroup ? (conn.chats[m.chat] || {}).metadata : {}) || {}
+            const isPrems = isROwner || db.data.users[m.sender].premiumTime > 0
+
+        if (opts['queque'] && m.text && !(isMods || isPrems)) {
+            let queque = this.msgqueque, time = 1000 * 5
+            const previousID = queque[queque.length - 1]
+            queque.push(m.id || m.key.id)
+            setInterval(async function () {
+                if (queque.indexOf(previousID) === -1) clearInterval(this)
+                await delay(time)
+            }, time)
+        }
+
+        if (m.isBaileys)
+            return
+        m.exp += Math.ceil(Math.random() * 10)
+
+        let usedPrefix
+        let _user = global.db.data && global.db.data.users && global.db.data.users[m.sender]
+
+        const groupMetadata = (m.isGroup ? ((conn.chats[m.chat] || {}).metadata || await this.groupMetadata(m.chat).catch(_ => null)) : {}) || {}
             let participants = (m.isGroup ? groupMetadata.participants : []) || []
             let user = (m.isGroup ? participants.find(u => conn.decodeJid(u.id) === m.sender) : {}) || {} // User Data
             let bot = (m.isGroup ? participants.find(u => conn.decodeJid(u.id) == this.user.jid) : {}) || {} // Your Data
@@ -581,7 +601,7 @@ module.exports = {
                         fail('private', m, this)
                         continue
                     }
-                    if (plugin.register == true && _user.registered == true) { // Butuh daftar?
+                    if (plugin.register == true && _user.registered == false) { // Butuh daftar?
                         fail('unreg', m, this)
                         continue
                     }
@@ -702,14 +722,14 @@ module.exports = {
                 if (chat.welcome) {
                     let groupMetadata = await this.groupMetadata(id) || (conn.chats[id] || {}).metadata
                     for (let user of participants) {
-                       let pp = 'https://telegra.ph/file/0f805f19282f2f4416eaf.jpg'
+                       let pp = 'https://telegra.ph/file/46b7a95313dbb01b8ac43.jpg'
                         try {
                             pp = await this.profilePictureUrl(user, 'image')
                         } catch (e) {
                         } finally {
                             text = (action === 'add' ? (chat.sWelcome || this.welcome || conn.welcome || 'Yah,si Beban Masuk Grup @user').replace('@subject', groupMetadata.subject).replace('@desc', groupMetadata.desc.toString()) :
                                 (chat.sBye || this.bye || conn.bye || 'Sip, Beban Berkurang @user!')).replace('@user', '@' + user.split('@')[0])
-                                this.sendButtonImg(id, pp, text, "Group Message By ©ArullOfc", "Okee", "hhh", null)
+                                this.sendButtonImg(id, pp, text, "Group Message By ©yusufOfc", "Okee", "hhh", null)
                                 }
                     }
                 }
@@ -771,7 +791,7 @@ global.dfail = (type, m, conn) => {
     botAdmin: `╭─֍〔 ıll *WARNING* llı 〕֍─
 ⬡ Fitur ini tidak dapat work, bot tidak menjadi admin
 ╰─────────────────֍`,
-    restrict: 'Fitur ini di *disable*!',
+    restrict: '*ʀᴇsᴛʀɪᴄᴛ* • ʀᴇsᴛʀɪᴄᴛ ʙᴇʟᴜᴍ ᴅɪɴʏᴀʟᴀᴋᴀɴ ᴅɪᴄʜᴀᴛ ɪɴɪ',
     }[type]
   if (msg) return conn.sendBut(m.chat, msg, '📮 Silahkan pilih menu dibawah ini', 'Menu', '.menu', m)
  let unreg = {
